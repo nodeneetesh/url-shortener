@@ -2,10 +2,7 @@ package com.urlshortener.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -45,7 +42,7 @@ public class UrlMapping {
     @Builder.Default
     private Boolean active = true;
 
-    // URL owner
+    // USER OWNER
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -56,9 +53,7 @@ public class UrlMapping {
     }
 
     public boolean isExpired() {
-        if (expiresAt == null) {
-            return false;
-        }
-        return LocalDateTime.now().isAfter(expiresAt);
+        return expiresAt != null &&
+               LocalDateTime.now().isAfter(expiresAt);
     }
 }
