@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import com.urlshortener.model.User;
+
 
 /**
  * Repository interface for UrlMapping entity.
@@ -30,6 +32,8 @@ public interface UrlMappingRepository extends JpaRepository<UrlMapping, Long> {
 
     // Get all active URLs
     List<UrlMapping> findByActiveTrue();
+
+    List<UrlMapping> findByUser(User user);
 
     // Find by original URL (to avoid duplicate entries)
     Optional<UrlMapping> findByOriginalUrl(String originalUrl);
